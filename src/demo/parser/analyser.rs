@@ -150,7 +150,7 @@ impl Class {
 
 #[derive(Default, Debug, Eq, PartialEq, Deserialize, Clone)]
 #[serde(from = "HashMap<Class, u16>")]
-pub struct ClassList([u16; 10]);
+pub struct ClassList([u16; 11]);
 
 impl ClassList {
     /// Get an iterator for all classes played and the number of spawn on the class
@@ -185,7 +185,7 @@ impl ClassList {
 
 #[test]
 fn test_classlist_sorted() {
-    let list = ClassList([0, 1, 5, 0, 0, 3, 0, 0, 0, 0]);
+    let list = ClassList([0, 1, 5, 0, 0, 3, 0, 0, 0, 0, 0]);
     assert_eq!(
         list.sorted().collect::<Vec<_>>(),
         &[(Class::Sniper, 5), (Class::Medic, 3), (Class::Scout, 1)]
