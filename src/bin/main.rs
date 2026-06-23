@@ -74,27 +74,27 @@ fn batchparse(processed_files: &mut HashSet<String>) -> Result<(), MainError> {
                     continue;
                 }
 
-                let dem_path = path.with_extension("dem");
-                let mut dem_file = match fs::File::create(&dem_path) {
-                    Ok(file) => file,
-                    Err(_) => continue,
-                };
-                if let Err(_) = dem_file.write_all(&contents) {
-                    continue;
-                }
+                // let dem_path = path.with_extension("dem");
+                // let mut dem_file = match fs::File::create(&dem_path) {
+                //     Ok(file) => file,
+                //     Err(_) => continue,
+                // };
+                // if let Err(_) = dem_file.write_all(&contents) {
+                //     continue;
+                // }
 
-                let demo_file_contents = match fs::read(&dem_path) {
-                    Ok(contents) => contents,
-                    Err(_) => continue,
-                };
-                let demo = Demo::new(&demo_file_contents);
+                // let demo_file_contents = match fs::read(&dem_path) {
+                //     Ok(contents) => contents,
+                //     Err(_) => continue,
+                // };
+                let demo = Demo::new(&contents);
 
                 let parser = if all {
                     DemoParser::new_all(demo.get_stream())
                 } else {
                     DemoParser::new(demo.get_stream())
                 };
-                let (mut header, state) = match parser.parse() {
+                let (header, state) = match parser.parse() {
                     Ok((header, state)) => (header, state),
                     Err(_) => continue,
                 };
@@ -135,10 +135,10 @@ fn batchparse(processed_files: &mut HashSet<String>) -> Result<(), MainError> {
 
                 processed_files.insert(file_stem.to_string());
 
-                if let Err(_) = fs::remove_file(&dem_path) {
-                    println!("Error removing file: {:?}", &dem_path);
-                    continue;
-                }
+                // if let Err(_) = fs::remove_file(&path) {
+                //     println!("Error removing file: {:?}", &path);
+                //     continue;
+                // }
   
             }
         }
