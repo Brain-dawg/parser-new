@@ -105,6 +105,7 @@ pub enum Class {
     Pyro = 7,
     Spy = 8,
     Engineer = 9,
+    Civilian = 10,
 }
 
 impl<'de> Deserialize<'de> for Class {
